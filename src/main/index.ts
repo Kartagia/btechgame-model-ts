@@ -1,5 +1,4 @@
 
-
 /**
  * The module containing the model of the battletech game aid.
  * @module "@kartagia/btechgame-model"
