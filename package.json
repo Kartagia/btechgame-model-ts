@@ -1,0 +1,22 @@
+{
+  "devDependencies": {
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.9"
+  },
+  "name": "@kartagia/btechgame-model",
+  "version": "1.0.0",
+  "description": "The model implementation of the battletech game campaign aid. ",
+  "type": "module",
+  "main": "build/main/index.js",
+  "scripts": {
+    "compile": "tsc",
+    "start": "tsc && node ./build/index.js", 
+    "test": "tsc && vitest"
+  },
+  "keywords": [
+    "harebrainedgames",
+    "btechgame"
+  ],
+  "author": "Antti Kautiainen <antti@kautiainen.com>",
+  "license": "MIT"
+}
