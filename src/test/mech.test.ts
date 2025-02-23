@@ -35,6 +35,37 @@ test("Count add", () => {
 
 });
 
+describe("Count set", () => {
+    it("Undefiened valued.", () => {
+        let count: Count<string> | undefined;
+        expect(() => {
+            count = createCount("Foo", 0, undefined, (val) => (Number.isFinite(val)));
+            count = count.set(Number.MAX_SAFE_INTEGER);
+        }).not.toThrow();
+        expect(count).toBeDefined();
+        expect(count?.value).toBe("Foo");
+        expect(count?.toString()).toBe("Foo");
+        expect(count?.count).toBe(Number.MAX_SAFE_INTEGER);
+        expect( () => {
+            count = count?.set(Number.POSITIVE_INFINITY);
+        }).toThrow();
+        expect(count?.count).toBe(Number.POSITIVE_INFINITY);       
+    });
+    it("Non-negative integer count", () => {
+        let count: Count<string> | undefined;
+        expect(() => {
+            count = createIntCount("Foo", 0, {min: 0});
+            count = count.set(Number.MAX_SAFE_INTEGER);
+        }).not.toThrow();
+        expect(count?.value).toBe("Foo");
+        expect(count?.count).toBe(Number.MAX_SAFE_INTEGER);
+        expect( () => {
+            count = count?.set(Number.POSITIVE_INFINITY);
+        }, `Expected ${Number.isSafeInteger(Number.POSITIVE_INFINITY)} to be false`).toThrow();
+        expect(count?.count).toBe(Number.POSITIVE_INFINITY);       
+    })
+});
+
 test("Testing create int count", () => {
     let count: Count<void> | undefined = undefined;
     expect(() => {
