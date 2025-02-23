@@ -11,10 +11,10 @@ import { Logger, ConsoleLogger } from "./logger.js";
  * 
  * @param logger 
  */
-export default async function moduleLoader(logger: Logger|undefined = undefined) {
+export default async function BTechGameModel(logger: Logger|undefined = undefined) {
     if (logger) {
         logger.log("Battletech aid module loaded successfully");
     }
 }
 
-moduleLoader(new ConsoleLogger());
+BTechGameModel(new ConsoleLogger());
