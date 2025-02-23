@@ -246,6 +246,10 @@ export type Count<TYPE> = {
 export function createCount<TYPE>(value: TYPE, count: number = 1, stringifier: (val: TYPE) => string = (val) => ("" + val),
     validator: (val: number) => boolean = (val) => (true)): Count<TYPE> {
 
+    if (!validator(count)) {
+        throw new RangeError("Invalid count");
+    }
+
     /**
      * Create resulting count.
      */
