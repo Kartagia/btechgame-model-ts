@@ -342,11 +342,6 @@ export function createIntCount<TYPE>(value: TYPE, count: number = 1, options: In
         }
     };
     return result;
-
-
-    return createCount(value, count, options.stringifier ?? ((value: TYPE) => ("" + value)),
-        (val: number) => (Number.isSafeInteger(val) && (!options.validator || options.validator(val)) &&
-            (options.max === undefined || count <= options.max) && (options.min === undefined || options.min <= count)));
 }
 
 
