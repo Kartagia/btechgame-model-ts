@@ -152,7 +152,7 @@ export type Loadout = Map<Location, Equipment[]>;
 export function totalWeight<TYPE>(source: Map<TYPE, Equipment[] | Equipment> | Equipment[] | Equipment): number {
     let total = 0;
     if (source instanceof Map) {
-        return source.entries().reduce((result: number, entry: [TYPE, Equipment[] | Equipment]) => (result + totalWeight(entry[1] ?? [])), total);
+        return [...source.entries()].reduce((result: number, entry: [TYPE, Equipment[] | Equipment]) => (result + totalWeight(entry[1] ?? [])), total);
     } else if (Array.isArray(source)) {
         return source.reduce((result: number, item: Equipment) => (result + item.weight), 0);
     } else {
@@ -199,7 +199,7 @@ export class AssembledMech extends Mech {
     }
 
     availableTonnage(): number {
-        return this.tonnage - this.loadout.entries().map(([location, entry], index) => (entry.reduce((result: number, item: Equipment) => (result + item.weight), 0))).reduce(
+        return this.tonnage - [...this.loadout.entries()].map(([location, entry], index) => (entry.reduce((result: number, item: Equipment) => (result + item.weight), 0))).reduce(
             (result, val) => (result + val), 0
         );
     }
@@ -309,6 +309,40 @@ export interface IntCountOptions<TYPE> {
  * @returns The integer count with given value, count, and constraints.
  */
 export function createIntCount<TYPE>(value: TYPE, count: number = 1, options: IntCountOptions<TYPE> = {}): Count<TYPE> {
+
+    const validator = (value: number) => (Number.isSafeInteger(value) && (options.validator === undefined || options.validator(count)) 
+&& ((options.min ?? Number.MIN_SAFE_INTEGER) <= count && count <= (options.max ?? Number.MAX_SAFE_INTEGER)));
+    
+    if (!validator(count)) {
+        throw new RangeError("Invalid count");
+    }
+
+    /**
+     * Create resulting count.
+     */
+    const result: Count<TYPE> = {
+        get value() { return value; },
+        get count() { return count; },
+        add(count) {
+            if (!validator(count)) {
+                throw new RangeError("Invalid added count");
+            } 
+            return createIntCount(this.value, this.count + count, options);
+        },
+        set(count) {
+            if (validator(count)){
+                return createIntCount(this.value, count, options);
+            } else {
+                throw new RangeError("Invalid new count");
+            }
+        },
+        valueOf() { return this.count },
+        toString() {
+            return (options?.stringifier || ((val) => (""+val)))(this.value);
+        }
+    };
+    return result;
+
 
     return createCount(value, count, options.stringifier ?? ((value: TYPE) => ("" + value)),
         (val: number) => (Number.isSafeInteger(val) && (!options.validator || options.validator(val)) &&
