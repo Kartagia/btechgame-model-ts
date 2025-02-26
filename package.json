@@ -9,9 +9,11 @@
   "type": "module",
   "main": "build/main/index.js",
   "scripts": {
+    "dev": "tsc --project tsconfig.build.dev.json",
+    "build": "tsc --build --clean",
     "compile": "tsc",
     "start": "tsc && node ./build/index.js", 
-    "test": "tsc && vitest"
+    "test": "tsc --project tsconfig.test.json && vitest"
   },
   "keywords": [
     "harebrainedgames",
