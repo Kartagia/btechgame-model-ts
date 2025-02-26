@@ -418,8 +418,8 @@ export class SimpleStorage implements MechStorage {
         });
     }
     get isComplete(): boolean {
-        return this.myParts.entries().every((entry: [string, Count<string | Mech>]) => (typeof entry[1]?.value !== "string")) &&
-            this.myStored.entries().every((entry: [string, Count<string | Mech>]) => (typeof entry[1]?.value !== "string"));
+        return [...this.myParts.entries()].every((entry: [string, Count<string | Mech>]) => (typeof entry[1]?.value !== "string")) &&
+            [...this.myStored.entries()].every((entry: [string, Count<string | Mech>]) => (typeof entry[1]?.value !== "string"));
     };
 
 }
