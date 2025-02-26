@@ -2,6 +2,6 @@
   "extends": ["./tsconfig.base.json"],
   "compilerOptions": {
      "outDir": "./dist",                                   /* Specify an output folder for all emitted files. */
-     "rootDir": "./src/main"
+     "rootDirs": ["./src/main", "./src/test"]
   }
 }
