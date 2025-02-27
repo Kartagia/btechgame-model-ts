@@ -1,0 +1,8 @@
+{
+    "extends": ["./tsconfig.base.json"],
+    "compilerOptions": {
+       "outDir": "./test",                                   /* Specify an output folder for all emitted files. */
+       "rootDirs": ["./src/main", "./src/test"],
+    }
+  }
+  
