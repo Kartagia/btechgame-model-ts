@@ -1,0 +1,19 @@
+{
+    "extends": ["./tsconfig.base.json"],
+    "include": ["src/main/**/*.ts"],
+    "exclude": ["test/**/*", "src/test/**/*", "build/**/*"], 
+    "compilerOptions": {
+        /* Projects */
+        "composite": true,
+
+        /* Language and environment */
+        "sourceRoot": "./src/main",
+        "inlineSourceMap": true,
+
+        /* Emit */
+        "declaration": true,
+        "noEmit": false,
+        "outDir": "./build",
+    },
+    
+}
