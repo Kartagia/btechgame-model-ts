@@ -1,7 +1,7 @@
 {
   "devDependencies": {
     "typescript": "^5.7.3",
-    "vitest": "^2.1.9"
+    "vitest": "^3.0.7"
   },
   "name": "@kartagia/btechgame-model",
   "version": "1.0.0",
@@ -10,7 +10,7 @@
   "main": "build/main/index.js",
   "scripts": {
     "compile": "tsc",
-    "start": "tsc && node ./build/index.js", 
+    "start": "tsc && node ./build/index.js",
     "test": "tsc && vitest"
   },
   "keywords": [
@@ -18,5 +18,8 @@
     "btechgame"
   ],
   "author": "Antti Kautiainen <antti@kautiainen.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@vercel/ncc": "^0.38.3"
+  }
 }
