@@ -18,9 +18,8 @@
 /.next/
 /out/
 
-# production
+# production (nighty build does contain dist)
 /build
-/dist
 
 # misc
 .DS_Store
